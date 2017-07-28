@@ -18,8 +18,18 @@
 <body>
 	<main>
 		<div class="machine-wrapper">
+			<div class="beat-row beat-tempo">
+				<?php foreach(range(1,4) as $j) { ?>
+					<div class="beat-bar">
+						<div class="beat-button"></div>
+						<div class="beat-button"></div>
+						<div class="beat-button"></div>
+						<div class="beat-button"></div>
+					</div>
+				<?php } ?>
+			</div>
 			<?php foreach(range(1,4) as $i) { ?>
-				<div class="beat-row beat-row-<?php echo $i ?>">
+				<div class="beat-row beat-buttons beat-row-<?php echo $i ?>">
 					<?php foreach(range(1,4) as $j) { ?>
 						<div class="beat-bar">
 							<div class="beat-button"></div>
@@ -37,8 +47,45 @@
 </html>
 
 <script>
-	const beatButtons = document.querySelectorAll('.beat-button');
+	const beatButtons = document.querySelectorAll('.beat-buttons .beat-button');
+	const tempoBar = document.querySelectorAll('.beat-tempo .beat-button');
+
 	beatButtons.forEach(beatButton => beatButton.addEventListener('click', function() {
 		this.classList.toggle('active');
 	}));
+
+	var lastTime = new Date().getTime();
+	var tempo = 40;
+
+	function animateBeat(timestamp){
+		const delay = 60000 / tempo;
+		const oneSixteenth = delay / 4;
+		var currentTime = new Date().getTime();
+		if (currentTime >= lastTime + oneSixteenth) {
+			updateTempoBar();
+			lastTime = currentTime;
+		}
+		// if (currentTime >= lastTime + delay) {
+		// 	lastTime = currentTime;
+		// }
+		requestAnimationFrame(animateBeat); // call requestAnimationFrame again to animate next frame
+	}
+
+	var tempoActive = 0;
+	function updateTempoBar() {
+		if (tempoActive > 0 ) {
+			tempoBar[tempoActive-1].classList.remove('active');
+		}
+		if (tempoActive == 0) {
+			tempoBar[15].classList.remove('active');
+		}
+		tempoBar[tempoActive].classList.add('active');
+		if (tempoActive < 15) {
+			tempoActive++;
+		} else {
+			tempoActive = 0;
+		}
+	}
+	animateBeat();
+
 </script>

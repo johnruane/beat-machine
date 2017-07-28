@@ -39,3 +39,13 @@ main {
 		cursor: pointer;
 	}
 }
+.beat-tempo {
+	.beat-button {
+		width: 10px;
+		height: 10px;
+	}
+	.beat-bar {
+		flex: 1;
+		justify-content: space-around;
+	}
+}
