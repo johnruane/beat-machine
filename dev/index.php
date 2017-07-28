@@ -27,7 +27,7 @@
 					</div>
 				<?php } ?>
 			</div>
-			<?php foreach(range(1,4) as $i) { ?>
+			<?php foreach(range(1,1) as $i) { ?>
 				<div class="beat-row beat-row-<?php echo $i ?>">
 					<?php foreach(range(1,4) as $j) { ?>
 						<div class="beat-bar">
