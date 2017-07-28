@@ -19,7 +19,7 @@
 	<main>
 		<div class="machine-wrapper">
 			<div class="beat-row beat-tempo">
-				<?php foreach(range(1,4) as $j) { ?>
+				<?php foreach(range(1,8) as $j) { ?>
 					<div class="beat-bar">
 						<?php foreach(range(1,4) as $k) { ?>
 							<div class="beat-button <?php echo $k ?>"></div>
@@ -29,19 +29,19 @@
 			</div>
 			<?php foreach(range(1,1) as $i) { ?>
 				<div class="beat-row beat-row-<?php echo $i ?>">
-					<?php foreach(range(1,4) as $j) { ?>
+					<?php foreach(range(1,8) as $j) { ?>
 						<div class="beat-bar">
-							<div class="beat-button"></div>
-							<div class="beat-button"></div>
-							<div class="beat-button"></div>
-							<div class="beat-button"></div>
+							<div class="beat-button <?php echo $j ?>"></div>
+							<div class="beat-button <?php echo $j ?>"></div>
+							<div class="beat-button <?php echo $j ?>"></div>
+							<div class="beat-button <?php echo $j ?>"></div>
 						</div>
 					<?php } ?>
 				</div>
 			<?php } ?>
 		</div>
 	</main>
-	<audio data-key="boom" src="sounds/boom.wav"></audio>
+	<audio data-key="boom" src="sounds/DMXKick01.wav"></audio>
 	<script>
 		const beatButtons1 = document.querySelectorAll('.beat-row-1 .beat-button');
 		const beatButtons2 = document.querySelectorAll('.beat-row-2 .beat-button');
@@ -56,7 +56,7 @@
 		}));
 
 		var lastTime = new Date().getTime();
-		var tempo = 120;
+		var tempo = 130;
 		var tempoActivePos = 0;
 
 		function animateBeat(timestamp){
@@ -74,8 +74,9 @@
 				tempoBar[tempoActivePos-1].classList.remove('active');
 			}
 			if (tempoActivePos == 0) {
-				tempoBar[15].classList.remove('active');
+				tempoBar[31].classList.remove('active');
 			}
+            console.log(tempoActivePos);
 			tempoBar[tempoActivePos].classList.add('active');
 
 			if (beatButtons1[tempoActivePos].classList.contains('active')) {
@@ -83,7 +84,7 @@
 				boom.play();
 			}
 
-			if (tempoActivePos < 15) {
+			if (tempoActivePos < 31) {
 				tempoActivePos++;
 			} else {
 				tempoActivePos = 0;
