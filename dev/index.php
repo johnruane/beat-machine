@@ -21,15 +21,14 @@
 			<div class="beat-row beat-tempo">
 				<?php foreach(range(1,4) as $j) { ?>
 					<div class="beat-bar">
-						<div class="beat-button"></div>
-						<div class="beat-button"></div>
-						<div class="beat-button"></div>
-						<div class="beat-button"></div>
+						<?php foreach(range(1,4) as $k) { ?>
+							<div class="beat-button <?php echo $k ?>"></div>
+						<?php } ?>
 					</div>
 				<?php } ?>
 			</div>
 			<?php foreach(range(1,4) as $i) { ?>
-				<div class="beat-row beat-buttons beat-row-<?php echo $i ?>">
+				<div class="beat-row beat-row-<?php echo $i ?>">
 					<?php foreach(range(1,4) as $j) { ?>
 						<div class="beat-bar">
 							<div class="beat-button"></div>
@@ -42,50 +41,57 @@
 			<?php } ?>
 		</div>
 	</main>
-<script src="//localhost:35729/livereload.js"></script>
+	<audio data-key="boom" src="sounds/boom.wav"></audio>
+	<script>
+		const beatButtons1 = document.querySelectorAll('.beat-row-1 .beat-button');
+		const beatButtons2 = document.querySelectorAll('.beat-row-2 .beat-button');
+		const beatButtons3 = document.querySelectorAll('.beat-row-3 .beat-button');
+		const beatButtons4 = document.querySelectorAll('.beat-row-4 .beat-button');
+		const tempoBar = document.querySelectorAll('.beat-tempo .beat-button');
+
+		const boom = document.querySelector(`audio[data-key="boom"]`);
+
+		beatButtons1.forEach(beatButton => beatButton.addEventListener('click', function() {
+			this.classList.toggle('active');
+		}));
+
+		var lastTime = new Date().getTime();
+		var tempo = 120;
+		var tempoActivePos = 0;
+
+		function animateBeat(timestamp){
+			const delay = 60000 / tempo;
+			const oneSixteenth = delay / 4;
+			var currentTime = new Date().getTime();
+			if (currentTime >= lastTime + oneSixteenth) {
+				updateTempoBar();
+				lastTime = currentTime;
+			}
+			requestAnimationFrame(animateBeat);
+		}
+		function updateTempoBar() {
+			if (tempoActivePos > 0 ) {
+				tempoBar[tempoActivePos-1].classList.remove('active');
+			}
+			if (tempoActivePos == 0) {
+				tempoBar[15].classList.remove('active');
+			}
+			tempoBar[tempoActivePos].classList.add('active');
+
+			if (beatButtons1[tempoActivePos].classList.contains('active')) {
+				boom.currentTime = 0;
+				boom.play();
+			}
+
+			if (tempoActivePos < 15) {
+				tempoActivePos++;
+			} else {
+				tempoActivePos = 0;
+			}
+		}
+		animateBeat();
+
+	</script>
+	<script src="//localhost:35729/livereload.js"></script>
 </body>
 </html>
-
-<script>
-	const beatButtons = document.querySelectorAll('.beat-buttons .beat-button');
-	const tempoBar = document.querySelectorAll('.beat-tempo .beat-button');
-
-	beatButtons.forEach(beatButton => beatButton.addEventListener('click', function() {
-		this.classList.toggle('active');
-	}));
-
-	var lastTime = new Date().getTime();
-	var tempo = 40;
-
-	function animateBeat(timestamp){
-		const delay = 60000 / tempo;
-		const oneSixteenth = delay / 4;
-		var currentTime = new Date().getTime();
-		if (currentTime >= lastTime + oneSixteenth) {
-			updateTempoBar();
-			lastTime = currentTime;
-		}
-		// if (currentTime >= lastTime + delay) {
-		// 	lastTime = currentTime;
-		// }
-		requestAnimationFrame(animateBeat); // call requestAnimationFrame again to animate next frame
-	}
-
-	var tempoActive = 0;
-	function updateTempoBar() {
-		if (tempoActive > 0 ) {
-			tempoBar[tempoActive-1].classList.remove('active');
-		}
-		if (tempoActive == 0) {
-			tempoBar[15].classList.remove('active');
-		}
-		tempoBar[tempoActive].classList.add('active');
-		if (tempoActive < 15) {
-			tempoActive++;
-		} else {
-			tempoActive = 0;
-		}
-	}
-	animateBeat();
-
-</script>
