@@ -1,0 +1,13 @@
+body {
+	background-color: #000;
+}
+main {
+	display: flex;
+	align-items: center;
+	justify-content: center; 
+}
+.machine-wrapper {
+	width: 800px;
+	height: 500px;
+	border: 1px solid white;
+}
