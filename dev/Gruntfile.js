@@ -6,36 +6,28 @@ module.exports = function(grunt) {
         sass: {
             dev: {
                 files: {
-                    "dev/styles.css": "dev/styles.scss"
+                    "../build/styles.css": "scss/styles.scss"
                 }
             }
         },
         // Adds vendor prefixes to CSS
         autoprefixer: {
           dev: {
-            src: 'build/*.css'
+            src: 'scss/*.css'
           }
         },
         watch: {
             php: {
-                files: ['dev/*.html'],
-                tasks: ['copy:html'],
+                files: ['*.php'],
+                tasks: ['copy:php'],
                 options: {
                   spawn: false,
                   livereload: true
                 }
             },
             sass: {
-                files: [ 'dev/*.scss' ],
+                files: [ 'scss/*.scss' ],
                 tasks: [ 'sass:dev', 'autoprefixer:dev'],
-                options: {
-                  spawn: false,
-                  livereload: true
-                }
-            },
-            js: {
-                files: [ 'dev/js/{,*/}*.js' ],
-                tasks: [ 'copy:js' ],
                 options: {
                   spawn: false,
                   livereload: true
@@ -44,35 +36,22 @@ module.exports = function(grunt) {
         },
         // Copies these files into build folder
         copy: {
-            html: {
+            php: {
                 files: [{
                   expand: true,
                   flatten: true,
-                  src: ['dev/*.html'],
-                  dest: 'build/'
-                }]
-            },
-            js: {
-                files: [{
-                  expand: true,
-                  flatten: true,
-                  src: ['dev/*.js'],
-                  dest: 'build/'
-                }]
-            },
-            css: {
-                files: [{
-                  expand: true,
-                  flatten: true,
-                  src: ['dev/*.css'],
-                  dest: 'build/'
+                  src: ['*.php'],
+                  dest: '../build/'
                 }]
             }
         },
-        // Clean build files
-        clean: {
-          src: ['build/**']
-        }
+		// Clean build files
+		clean: {
+		  src: ['../build/**'],
+		  options: {
+			  force: true
+		  }
+		}
     });
 
     // ---------------------------------------------------------------------
@@ -90,6 +69,6 @@ module.exports = function(grunt) {
     // ---------------------------------------------------------------------
 
     // The default task just runs build
-    grunt.registerTask('default', ['sass', 'autoprefixer', 'clean', 'copy', 'watch']);
+    grunt.registerTask('default', ['clean', 'sass', 'copy', 'watch']);
 
 };

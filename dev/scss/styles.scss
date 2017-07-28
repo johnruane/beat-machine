@@ -1,13 +1,41 @@
 body {
 	background-color: #000;
+	height: 100vh;
 }
 main {
 	display: flex;
-	align-items: center;
-	justify-content: center; 
+    align-items: center;
+    justify-content: center;
+	height: 100%;
 }
 .machine-wrapper {
-	width: 800px;
-	height: 500px;
+}
+.beat-row {
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+	& + .beat-row {
+		margin-top: 10px;
+	}
+}
+.beat-bar {
+	display: flex;
+    flex-direction: row;
+	& + .beat-bar {
+		margin-left: 10px;
+	}
+}
+.beat-button {
 	border: 1px solid white;
+	width: 40px;
+	height: 40px;
+	& + .beat-button {
+		margin-left: 5px;
+	}
+	&.active {
+		background-color: white;
+	}
+	&:hover {
+		cursor: pointer;
+	}
 }
