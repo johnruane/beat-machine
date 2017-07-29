@@ -1,39 +1,49 @@
 body {
-	background-color: #000;
+	background-color: #022C80;
 	height: 100vh;
+}
+h1 {
+	color: white;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 600;
+	font-size: 50px;
+	text-align: center;
 }
 main {
 	display: flex;
     align-items: center;
     justify-content: center;
+	flex-direction: column;
 	height: 100%;
 }
 .machine-wrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 }
-.beat-row {
-	display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-	& + .beat-row {
-		margin-top: 10px;
-	}
-}
+.beat-tempo,
 .beat-bar {
 	display: flex;
-    flex-direction: row;
-	& + .beat-bar {
-		margin-left: 10px;
+	justify-content: space-around;
+}
+.beat-tempo .beat-button {
+	border: 2px solid white;
+	&.active {
+		background-color: #ffffff;
+	}
+}
+.beat-bar .beat-button {
+	border: 2px solid white;
+	&.active {
+		background-color: #fec104;
 	}
 }
 .beat-button {
-	border: 1px solid white;
+
+	margin: 5px 10px;
 	width: 40px;
 	height: 40px;
-	& + .beat-button {
-		margin-left: 5px;
-	}
 	&.active {
-		background-color: white;
+		background-color: #fec104;
 	}
 	&:hover {
 		cursor: pointer;
@@ -43,9 +53,5 @@ main {
 	.beat-button {
 		width: 10px;
 		height: 10px;
-	}
-	.beat-bar {
-		flex: 1;
-		justify-content: space-around;
 	}
 }

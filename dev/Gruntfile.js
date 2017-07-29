@@ -43,7 +43,15 @@ module.exports = function(grunt) {
                   src: ['*.php'],
                   dest: '../build/'
                 }]
-            }
+            },
+            sounds: {
+                files: [{
+                  expand: true,
+                  flatten: true,
+                  src: ['sounds/*.wav'],
+                  dest: '../build/'
+                }]
+            },
         },
 		// Clean build files
 		clean: {
