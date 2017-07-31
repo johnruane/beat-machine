@@ -21,15 +21,17 @@
 	<main>
         <h1>Blue Monday</h1>
 		<div class="machine-wrapper">
-            <?php foreach(range(1,8) as $h) { ?>
+			<div class="beat-tempo">
+				<div class="beat-bar">
+					<?php foreach(range(1,8) as $j) { ?>
+						<div class="tempo-button <?php echo $j ?>"></div>
+					<?php } ?>
+				</div>
+			</div>
+            <?php foreach(range(1,4) as $h) { ?>
     			<div class="beat-block">
-                    <div class="beat-tempo">
-                        <?php foreach(range(1,4) as $i) { ?>
-                            <div class="beat-button <?php echo $i ?>"></div>
-                        <?php } ?>
-                    </div>
                     <div class="beat-bar">
-                        <?php foreach(range(1,4) as $j) { ?>
+                        <?php foreach(range(1,8) as $j) { ?>
                             <div class="beat-button <?php echo $j ?>"></div>
                         <?php } ?>
                     </div>
@@ -39,8 +41,8 @@
 	</main>
 	<audio data-key="boom" src="DMXKick02.wav"></audio>
 	<script>
+		const tempoButtons = document.querySelectorAll('.beat-tempo .tempo-button');
 		const beatButtons1 = document.querySelectorAll('.beat-bar .beat-button');
-		const tempoBar = document.querySelectorAll('.beat-tempo .beat-button');
 		const boom = document.querySelector(`audio[data-key="boom"]`);
 
 		beatButtons1.forEach(beatButton => beatButton.addEventListener('click', function() {
@@ -48,8 +50,9 @@
 		}));
 
 		var lastTime = new Date().getTime();
-		var tempo = 130;
 		var tempoActivePos = 0;
+		const beats = 8;
+		const tempo = 130;
 
 		function animateBeat(timestamp){
 			const delay = 60000 / tempo;
@@ -63,17 +66,24 @@
 		}
 		function updateTempoBar() {
 			if (tempoActivePos > 0 ) {
-				tempoBar[tempoActivePos-1].classList.remove('active');
+				beatButtons1[tempoActivePos-1].classList.remove('beat');
 			}
 			if (tempoActivePos == 0) {
-				tempoBar[tempoBar.length -1].classList.remove('active');
+				beatButtons1[beatButtons1.length -1].classList.remove('beat');
 			}
-			tempoBar[tempoActivePos].classList.add('active');
-			if (beatButtons1[tempoActivePos].classList.contains('active')) {
+			if (tempoActivePos % beats > 0 ) {
+				tempoButtons[(tempoActivePos % beats) - 1].classList.remove('beat');
+			}
+			if (tempoActivePos % beats == 0) {
+				tempoButtons[beats - 1].classList.remove('beat');
+			}
+			beatButtons1[tempoActivePos].classList.add('beat');
+			tempoButtons[tempoActivePos % beats].classList.add('beat');
+				if (beatButtons1[tempoActivePos].classList.contains('active')) {
 				boom.currentTime = 0;
 				boom.play();
 			}
-			if (tempoActivePos < tempoBar.length -1) {
+			if (tempoActivePos < beatButtons1.length -1) {
 				tempoActivePos++;
 			} else {
 				tempoActivePos = 0;
@@ -81,7 +91,7 @@
 		}
         function blueMonday() {
             //const buttons = [0,4,8,9,10,11,12,13,14,15,16,20,24,28];
-            //const buttons = [3,7,11,12,13,14,15,16,17,18,19,23,27,31];
+            const buttons = [3,7,11,12,13,14,15,16,17,18,19,23,27,31];
             buttons.forEach(buttonPos => beatButtons1[buttonPos].classList.add('active'));
         }
 		animateBeat();
