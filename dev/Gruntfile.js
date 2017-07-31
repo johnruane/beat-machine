@@ -44,6 +44,14 @@ module.exports = function(grunt) {
                   dest: '../build/'
                 }]
             },
+			js: {
+				files: [{
+				  expand: true,
+				  flatten: true,
+				  src: ['*.js'],
+				  dest: '../build/'
+				}]
+			},
             sounds: {
                 files: [{
                   expand: true,
