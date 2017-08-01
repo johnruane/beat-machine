@@ -28,7 +28,7 @@
 			<div class="beat-tempo">
 				<div class="beat-bar">
 					<?php foreach(range(1,8) as $j) { ?>
-						<div class="tempo-button <?php echo $j ?>"></div>
+						<div class="tempo-button"></div>
 						<?php } ?>
 					</div>
 				</div>
@@ -36,7 +36,7 @@
 					<div class="beat-block">
 						<div class="beat-bar">
 							<?php foreach(range(1,8) as $j) { ?>
-								<div class="beat-button <?php echo $j ?>"></div>
+								<div class="beat-button"></div>
 								<?php } ?>
 							</div>
 						</div>

@@ -13,14 +13,7 @@ p {
 	color: white;
 	text-align: center;
 }
-button {
-	background-color: white;
-    color: #022C80;
-    padding: 5px 20px 3px;
-	width: 80px;
-    font-family: 'Poppins', sans-serif;
-	border: none;
-}
+
 .machine-wrapper {
 	margin: 0 auto;
 	display: grid;
@@ -33,10 +26,17 @@ button {
 	border: 1px solid white;
 }
 @media only screen and (max-width: 565px) {
+	h1 {
+		word-wrap: break-word;
+		width: 27px;
+	}
 	.machine-wrapper {
-		grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-		width: 240px;
-		height: 440px;
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+		width: 285px;
+		height: 520px;
+	}
+	.beat-block {
+		padding: 0 10px;
 	}
 }
 .active {
@@ -92,6 +92,15 @@ button {
 		cursor: pointer;
 	}
 }
+@media only screen and (max-width: 565px) {
+	.beat-tempo {
+		order: 2;
+	}
+	.beat-button {
+		width: 25px;
+		height: 25px;
+	}
+}
 @media only screen and (min-width: 566px) {
 	.beat-button + .beat-button {
 		margin-left: 10px;
@@ -104,6 +113,42 @@ button {
 	width: 10px;
 	&.beat {
 		background-color: red;
+	}
+}
+.tempo-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	button {
+		background-color: white;
+		width: 40px;
+		height: 40px;
+		font-family: 'Poppins', sans-serif;
+		font-size: 20px;
+		border: none;
+	}
+	input {
+		color: #FFF;
+		margin: 0 10px;
+		width: 35px;
+		background: transparent;
+	    border: none;
+		font-size: 16px;
+		text-align: center;
+	}
+	p {
+		margin-right: 10px;
+	}
+}
+@media only screen and (max-width: 565px) {
+	.tempo-wrapper {
+		button {
+			width: 20px;
+			height: 20px;
+		}
+		p, button {
+			font-size: 12px;
+		}
 	}
 }
 .no-touchevents .play-button {
