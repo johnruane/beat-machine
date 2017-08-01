@@ -27,27 +27,28 @@
 				<div class="beat-bar">
 					<?php foreach(range(1,16) as $j) { ?>
 						<div class="tempo-button <?php echo $j ?>"></div>
+					<?php } ?>
+				</div>
+			</div>
+			<?php foreach(range(1,4) as $h) { ?>
+				<div class="beat-block" data-sound="sound<?php echo $h ?>">
+					<div class="beat-bar">
+						<?php foreach(range(1,16) as $j) { ?>
+							<div class="beat-button beat-button-<?php echo $j ?>"></div>
 						<?php } ?>
 					</div>
 				</div>
-				<?php foreach(range(1,4) as $h) { ?>
-					<div class="beat-block" data-sound="sound<?php echo $h ?>">
-						<div class="beat-bar">
-							<?php foreach(range(1,16) as $j) { ?>
-								<div class="beat-button beat-button-<?php echo $j ?>"></div>
-								<?php } ?>
-							</div>
-						</div>
-						<?php } ?>
-					</div>
-				</main>
-				<div class="tempo-wrapper">
-					<p>Tempo: </p>
-					<button class="decrement">+</button>
-					<input type="number" class="tempo-display" value="130" min="0" max="220" step= "5" maxlength="3"/>
-					<button class="increment">-</button>
-				</div>
-				<script>
+			<?php } ?>
+			</div>
+			<div class="tempo-wrapper">
+				<p>Tempo: </p>
+				<button class="decrement">+</button>
+				<input type="number" class="tempo-display" value="130" min="0" max="220" step= "5" maxlength="3"/>
+				<button class="increment">-</button>
+			</div>
+		</div>
+	</main>
+	<script>
 
 				// Event listeners
 				const tempoButtons = document.querySelectorAll('.beat-tempo .tempo-button');
