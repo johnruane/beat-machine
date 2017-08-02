@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Blue Monday</title>
+	<title>Beat Machine</title>
 	<meta name="description" content="Blue Monday">
 	<meta name="author" content="SitePoint">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
@@ -21,75 +21,83 @@
 
 <body>
 	<main>
-		<h1>Blue Monday</h1>
-		<p>Press to <button class="play-button">START</button></p>
-
 		<div class="machine-wrapper">
+			<h1>Beat Machine</h1>
 			<div class="beat-tempo">
 				<div class="beat-bar">
-					<?php foreach(range(1,8) as $j) { ?>
-						<div class="tempo-button"></div>
+					<?php foreach(range(1,16) as $j) { ?>
+						<div class="tempo-button <?php echo $j ?>"></div>
+					<?php } ?>
+				</div>
+			</div>
+			<?php foreach(range(1,4) as $h) { ?>
+				<div class="beat-block" data-sound="sound<?php echo $h ?>">
+					<div class="beat-bar">
+						<?php foreach(range(1,16) as $j) { ?>
+							<div class="beat-button beat-button-<?php echo $j ?>"></div>
 						<?php } ?>
 					</div>
 				</div>
-				<?php foreach(range(1,4) as $h) { ?>
-					<div class="beat-block">
-						<div class="beat-bar">
-							<?php foreach(range(1,8) as $j) { ?>
-								<div class="beat-button"></div>
-								<?php } ?>
-							</div>
-						</div>
-						<?php } ?>
-					</div>
-				</main>
-				<script>
+			<?php } ?>
+			</div>
+			<div class="tempo-wrapper">
+				<p>Tempo: </p>
+				<button class="decrement">+</button>
+				<input type="number" class="tempo-display" value="130" min="0" max="220" step= "5" maxlength="3"/>
+				<button class="increment">-</button>
+			</div>
+		</div>
+	</main>
+	<script>
 
 				// Event listeners
 				const tempoButtons = document.querySelectorAll('.beat-tempo .tempo-button');
-				const beatButtons = document.querySelectorAll('.beat-bar .beat-button');
-				const playButton = document.querySelector('.play-button');
-				playButton.addEventListener('click', function() {
-					var playing = this.classList.value.includes('playing');
-					if (playing) {
-						pause = true;
-						sound.stop();
-						this.classList.remove('playing');
-						this.innerText = "START"
-					} else {
-						pause = false;
-						animateBeat();
-						this.classList.add('playing');
-						this.innerText = "STOP"
-					}
+				const beatBlocks = document.querySelectorAll('.beat-block');
+				beatBlocks.forEach(function(block) {
+					var beatButtons = block.querySelectorAll('.beat-button');
+					beatButtons.forEach(beatButton => beatButton.addEventListener('click', function() {
+						this.classList.toggle('active');
+					}));
 				});
 
 				// Consts for timing calculations
-				const beatsPerBar = 8;
-				const tempo = 130;
+				var tempo = 80;
+				var maxTempo = 240;
 
+				// Tempo controls
+				const tempoDisplay = document.querySelector('.tempo-display');
+				tempoDisplay.value = tempo;
+				const tempoControls = document.querySelectorAll('.tempo-wrapper button');
+				tempoControls.forEach(function(button) {
+					button.addEventListener('click', function() {
+					tempo = this.classList.value === "decrement" ? tempo + 5 : tempo - 5;
+						tempoDisplay.value = tempo;
+					});
+				});
+				const tempoInput = document.querySelector('.tempo-wrapper input');
+				tempoInput.addEventListener('input', function() {
+					if (tempoInput > maxTempo) return false;
+					tempo = this.value;
+				});
 				// Variables for timing calculations
 				var lastTime = new Date().getTime();
 				var tempoActivePos = 0;
 
 				// Howler setup
-				var sound = new Howl({
-					src: ['DMXKick02.wav']
+				var sound1 = new Howl({
+					src: ['kick.wav']
+				});
+				var sound2 = new Howl({
+					src: ['tom.wav']
+				});
+				var sound3 = new Howl({
+					src: ['snare.wav']
+				});
+				var sound4 = new Howl({
+					src: ['hihat.wav']
 				});
 
-				var pause = false;
-
-				// Auto start if non-touch device
-				const device = document.querySelector('html');
-				if (device.classList.value.includes('no-touchevents')) {
-					animateBeat();
-				}
-
-				// Auto select required beats for song
-				const buttons = [3,7,11,12,13,14,15,16,17,18,19,23,27,31];
-				buttons.forEach(function(buttonPos) {
-					beatButtons[buttonPos].classList.add('active');
-				});
+				animateBeat();
 
 				function animateBeat(timestamp){
 					const delay = 60000 / tempo;
@@ -99,30 +107,26 @@
 						updateBeat();
 						lastTime = currentTime;
 					}
-					if (pause) return;
 					requestAnimationFrame(animateBeat);
 				}
 				function updateBeat() {
-					// Beat button cycles
+					// For each block, if a button has 'active', get sound from data atr and eval()
+					beatBlocks.forEach(function(block) {
+						var sound = block.getAttribute('data-sound');
+						var button = block.querySelectorAll('.beat-button-'+parseInt(tempoActivePos+1));
+						if (button[0].classList.value.includes('active')) {
+							eval(sound).play();
+						}
+					});
+					// Tempo cycles
+					tempoButtons[tempoActivePos].classList.add('beat');
 					if (tempoActivePos > 0 ) {
-						beatButtons[tempoActivePos-1].classList.remove('beat');
+						tempoButtons[(tempoActivePos-1)].classList.remove('beat');
 					}
 					if (tempoActivePos == 0) {
-						beatButtons[beatButtons.length -1].classList.remove('beat');
+						tempoButtons[tempoButtons.length-1].classList.remove('beat');
 					}
-					// Tempo cycles
-					if (tempoActivePos % beatsPerBar > 0 ) {
-						tempoButtons[(tempoActivePos % beatsPerBar) - 1].classList.remove('beat');
-					}
-					if (tempoActivePos % beatsPerBar == 0) {
-						tempoButtons[beatsPerBar - 1].classList.remove('beat');
-					}
-					beatButtons[tempoActivePos].classList.add('beat');
-					tempoButtons[tempoActivePos % beatsPerBar].classList.add('beat');
-					if (beatButtons[tempoActivePos].classList.contains('active')) {
-						sound.play();
-					}
-					if (tempoActivePos < beatButtons.length -1) {
+					if (tempoActivePos < tempoButtons.length-1) {
 						tempoActivePos++;
 					} else {
 						tempoActivePos = 0;
