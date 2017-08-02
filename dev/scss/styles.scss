@@ -1,86 +1,109 @@
+$sm: 375px;
+$md: 768px;
+$lg: 900px;
 body {
 	background-color: #000;
 	font-family: 'Poppins', sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	margin: 0;
 }
 h1 {
 	color: white;
 	font-weight: 600;
-	font-size: 30px;
 	text-align: center;
-	margin-top: 0;
+	word-wrap: break-word;
+	width: 25px;
+	font-size: 27px;
+	@media only screen and (min-width: $sm) {
+		font-size: 30px;
+	}
+	@media only screen and (min-width: $md) {
+		font-size: 39px;
+		width: 36px;
+	}
+	@media only screen and (min-width: $lg) {
+		word-wrap: normal;
+		width: auto;
+		& span {
+			display: none;
+		}
+	}
+}
+.heading-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 p {
 	color: white;
 	text-align: center;
 }
-
 .machine-wrapper {
-	margin: 0 auto;
 	display: grid;
-	grid-gap: 10px;
-	width: 422px;
+	grid-template-columns: 1fr 1fr 1fr;
+	@media only screen and (min-width: $lg) {
+		grid-template-columns: 1fr;
+	}
+}
+.beat-tempo {
+	order: 2;
+	@media only screen and (min-width: $lg) {
+		margin-top: 15px;
+	}
 }
 .audio-hack {
 	width: 20px;
 	height: 20px;
 	border: 1px solid white;
 }
-@media only screen and (max-width: 565px) {
-	h1 {
-		word-wrap: break-word;
-		width: 27px;
-	}
-	.machine-wrapper {
-		grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-		width: 285px;
-		height: 520px;
-	}
-	.beat-block {
-		padding: 0 10px;
-	}
-}
 .active {
 	background-color: #ffffff;
 }
 .beat-bar {
 	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
     height: 100%;
-}
-@media only screen and (max-width: 565px) {
-	.beat-bar {
-		display: flex;
-	    flex-direction: column-reverse;
-		justify-content: space-around;
+	flex-direction: column-reverse;
+	justify-content: space-around;
+	align-items: center;
+	@media only screen and (min-width: $lg) {
+		flex-direction: row;
 	}
 }
 .beat-bar .beat-button {
 	border: 2px solid white;
+	@media only screen and (min-width: $sm) {
+		margin: 2px 0;
+	}
+	@media only screen and (min-width: $lg) {
+		margin: 0 5px;
+	}
 }
-.machine-wrapper > div:nth-child(2) .beat-button {
+.beat-wrapper > div:nth-child(2) .beat-button {
 	&.active {
 		background-color: #FEF200;
 	}
 }
-.machine-wrapper > div:nth-child(3) .beat-button {
+.beat-wrapper > div:nth-child(3) .beat-button {
 	&.active {
 		background-color: #8ED9F9;
 	}
 }
-.machine-wrapper > div:nth-child(4) .beat-button {
+.beat-wrapper > div:nth-child(4) .beat-button {
 	&.active {
 		background-color: #DD1788;
 	}
 }
-.machine-wrapper > div:nth-child(5) .beat-button {
+.beat-wrapper > div:nth-child(5) .beat-button {
 	&.active {
 		background-color: #32BCAD;
 	}
 }
 .beat-button {
-	width: 40px;
-	height: 40px;
+	width: 20px;
+	height: 20px;
 	&.active {
 		background-color: #fec104;
 	}
@@ -91,19 +114,21 @@ p {
 	&:hover {
 		cursor: pointer;
 	}
-}
-@media only screen and (max-width: 565px) {
-	.beat-tempo {
-		order: 2;
+	@media only screen and (min-width: $sm) {
+		width: 30px;
+		height: 30px;
 	}
-	.beat-button {
-		width: 25px;
-		height: 25px;
+	@media only screen and (min-width: $md) {
+		width: 40px;
+		height: 40px;
 	}
 }
-@media only screen and (min-width: 566px) {
-	.beat-button + .beat-button {
-		margin-left: 10px;
+.beat-wrapper {
+	display: grid;
+	grid-gap: 10px;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	@media only screen and (min-width: $lg) {
+		grid-template-columns: 1fr;
 	}
 }
 .tempo-button {
@@ -116,16 +141,25 @@ p {
 	}
 }
 .tempo-wrapper {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	margin: 5px auto 0;
+	text-align: center;
 	button {
 		background-color: white;
-		width: 40px;
-		height: 40px;
+		width: 20px;
+		height: 20px;
 		font-family: 'Poppins', sans-serif;
-		font-size: 20px;
+		font-size: 12px;
 		border: none;
+		@media only screen and (min-width: $sm) {
+			width: 30px;
+			height: 30px;
+			font-size: 20px;
+		}
+		@media only screen and (min-width: $md) {
+			width: 40px;
+			height: 40px;
+			margin-top: 15px;
+		}
 	}
 	input {
 		color: #FFF;
@@ -136,20 +170,7 @@ p {
 		font-size: 16px;
 		text-align: center;
 	}
-	p {
-		margin-right: 10px;
-	}
-}
-@media only screen and (max-width: 565px) {
-	.tempo-wrapper {
-		button {
-			width: 20px;
-			height: 20px;
-		}
-		p, button {
-			font-size: 12px;
-		}
-	}
+
 }
 .no-touchevents .play-button {
 	display: none;

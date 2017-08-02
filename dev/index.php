@@ -22,7 +22,9 @@
 <body>
 	<main>
 		<div class="machine-wrapper">
-			<h1>Beat Machine</h1>
+			<div class="heading-wrapper">
+				<h1>Beat <span>.</span> Machine</h1>
+			</div> 
 			<div class="beat-tempo">
 				<div class="beat-bar">
 					<?php foreach(range(1,16) as $j) { ?>
@@ -30,18 +32,19 @@
 					<?php } ?>
 				</div>
 			</div>
-			<?php foreach(range(1,4) as $h) { ?>
-				<div class="beat-block" data-sound="sound<?php echo $h ?>">
-					<div class="beat-bar">
-						<?php foreach(range(1,16) as $j) { ?>
-							<div class="beat-button beat-button-<?php echo $j ?>"></div>
-						<?php } ?>
+			<div class="beat-wrapper">
+				<?php foreach(range(1,4) as $h) { ?>
+					<div class="beat-block" data-sound="sound<?php echo $h ?>">
+						<div class="beat-bar">
+							<?php foreach(range(1,16) as $j) { ?>
+								<div class="beat-button beat-button-<?php echo $j ?>"></div>
+							<?php } ?>
+						</div>
 					</div>
+				<?php } ?>
 				</div>
-			<?php } ?>
 			</div>
 			<div class="tempo-wrapper">
-				<p>Tempo: </p>
 				<button class="decrement">+</button>
 				<input type="number" class="tempo-display" value="130" min="0" max="220" step= "5" maxlength="3"/>
 				<button class="increment">-</button>
