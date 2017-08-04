@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 
 	<title>Beat Machine</title>
-	<meta name="description" content="Blue Monday">
+	<meta name="description" content="Beat Machine">
 	<meta name="author" content="SitePoint">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
 
@@ -24,7 +24,7 @@
 		<div class="machine-wrapper">
 			<div class="heading-wrapper">
 				<h1>Beat <span>.</span> Machine</h1>
-			</div> 
+			</div>
 			<div class="beat-tempo">
 				<div class="beat-bar">
 					<?php foreach(range(1,16) as $j) { ?>

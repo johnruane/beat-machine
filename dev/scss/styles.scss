@@ -15,8 +15,8 @@ h1 {
 	font-weight: 600;
 	text-align: center;
 	word-wrap: break-word;
-	width: 25px;
-	font-size: 27px;
+	width: 20px;
+	font-size: 22px;
 	@media only screen and (min-width: $sm) {
 		font-size: 30px;
 	}
@@ -48,10 +48,41 @@ p {
 		grid-template-columns: 1fr;
 	}
 }
+@supports not (display: grid) {
+	main {
+		width: 100%;
+	}
+	.machine-wrapper {
+		display: flex;
+		justify-content: space-around;
+		max-width: 270px;
+		margin: 0 auto;
+		@media only screen and (min-width: $sm) {
+			max-width: 330px;
+		}
+		@media only screen and (min-width: $md) {
+			max-width: 420px;
+		}
+		@media only screen and (min-width: $lg) {
+			flex-flow: row wrap;
+			max-width: 855px;
+		}
+	}
+}
 .beat-tempo {
 	order: 2;
 	@media only screen and (min-width: $lg) {
 		margin-top: 15px;
+		width: 100%;
+	}
+}
+@supports not (display: grid) {
+	.beat-block + .beat-block {
+		margin-left: 10px;
+		@media only screen and (min-width: $lg) {
+			margin-left: 0;
+			margin-top: 10px;
+		}
 	}
 }
 .audio-hack {
@@ -131,6 +162,12 @@ p {
 		grid-template-columns: 1fr;
 	}
 }
+@supports not (display: grid) {
+	.beat-wrapper {
+		display: flex;
+		flex-flow: row wrap;
+	}
+}
 .tempo-button {
 	border: 1px solid white;
 	border-radius: 25px;
@@ -140,16 +177,28 @@ p {
 		background-color: red;
 	}
 }
+@supports not (display: grid) {
+	.tempo-wrapper {
+		margin-top: 25px;
+		@media only screen and (min-width: $sm) {
+			margin-top: 10px;
+		}
+		@media only screen and (min-width: $lg) {
+			margin-top: 25px;
+		}
+	}
+}
 .tempo-wrapper {
-	margin: 5px auto 0;
+	margin: 25px auto 0;
 	text-align: center;
 	button {
 		background-color: white;
-		width: 20px;
-		height: 20px;
+		width: 25px;
+		height: 25px;
 		font-family: 'Poppins', sans-serif;
-		font-size: 12px;
+		font-size: 15px;
 		border: none;
+		padding: 0;
 		@media only screen and (min-width: $sm) {
 			width: 30px;
 			height: 30px;
@@ -158,12 +207,10 @@ p {
 		@media only screen and (min-width: $md) {
 			width: 40px;
 			height: 40px;
-			margin-top: 15px;
 		}
 	}
 	input {
 		color: #FFF;
-		margin: 0 10px;
 		width: 35px;
 		background: transparent;
 	    border: none;

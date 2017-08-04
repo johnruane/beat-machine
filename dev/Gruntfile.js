@@ -2,6 +2,20 @@
 module.exports = function(grunt) {
 
     grunt.initConfig({
+		php2html: {
+			default: {
+				options: {
+					htmlhint: false,
+				},
+				files: [{
+					expand: true,
+					cwd: '',
+					src: ['*.php'],
+					dest: '../build/',
+					ext: '.html'
+				}]
+			},
+		},
         // LESS compilation
         sass: {
             dev: {
@@ -79,12 +93,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-php2html');
 
     // ---------------------------------------------------------------------
     // Register tasks
     // ---------------------------------------------------------------------
 
     // The default task just runs build
-    grunt.registerTask('default', ['clean', 'sass', 'copy', 'watch']);
+	grunt.registerTask('default', ['clean', 'sass', 'php2html', 'copy', 'watch']);
 
 };
