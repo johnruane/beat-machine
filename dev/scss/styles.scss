@@ -2,7 +2,6 @@ $sm: 375px;
 $md: 768px;
 $lg: 900px;
 body {
-	background-color: #000;
 	font-family: 'Poppins', sans-serif;
 	display: flex;
 	justify-content: center;
@@ -11,7 +10,6 @@ body {
 	margin: 0;
 }
 h1 {
-	color: white;
 	font-weight: 600;
 	text-align: center;
 	word-wrap: break-word;
@@ -38,7 +36,6 @@ h1 {
 	align-items: center;
 }
 p {
-	color: white;
 	text-align: center;
 }
 .machine-wrapper {
@@ -88,7 +85,7 @@ p {
 .audio-hack {
 	width: 20px;
 	height: 20px;
-	border: 1px solid white;
+	border: 1px solid #000;
 }
 .active {
 	background-color: #ffffff;
@@ -104,7 +101,7 @@ p {
 	}
 }
 .beat-bar .beat-button {
-	border: 2px solid white;
+	border: 2px solid #000;
 	@media only screen and (min-width: $sm) {
 		margin: 2px 0;
 	}
@@ -169,23 +166,12 @@ p {
 	}
 }
 .tempo-button {
-	border: 1px solid white;
+	border: 1px solid #000;
 	border-radius: 25px;
 	height: 10px;
 	width: 10px;
 	&.beat {
 		background-color: red;
-	}
-}
-@supports not (display: grid) {
-	.tempo-wrapper {
-		margin-top: 25px;
-		@media only screen and (min-width: $sm) {
-			margin-top: 10px;
-		}
-		@media only screen and (min-width: $lg) {
-			margin-top: 25px;
-		}
 	}
 }
 .tempo-wrapper {
@@ -218,6 +204,17 @@ p {
 		text-align: center;
 	}
 
+}
+@supports not (display: grid) {
+	.tempo-wrapper {
+		margin-top: 25px;
+		@media only screen and (min-width: $sm) {
+			margin-top: 10px;
+		}
+		@media only screen and (min-width: $lg) {
+			margin-top: 25px;
+		}
+	}
 }
 .no-touchevents .play-button {
 	display: none;
